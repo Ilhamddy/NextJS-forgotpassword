@@ -7,12 +7,16 @@
     "build": "next build",
     "serve": "next start",
     "lint": "next lint",
-    "test": "npx cypress verify & cypress run --component"
+    "test": "npx cypress verify & cypress run --component",
+    "tailwind:init": "npx tailwindcss init -p"
   },
   "dependencies": {
+    "@reduxjs/toolkit": "^2.0.1",
+    "axios": "^1.6.5",
     "next": "14.0.4",
     "react": "^18",
-    "react-dom": "^18"
+    "react-dom": "^18",
+    "react-redux": "^9.0.4"
   },
   "devDependencies": {
     "@types/node": "^20",
@@ -21,6 +25,7 @@
     "cypress": "^13.6.2",
     "eslint": "^8",
     "eslint-config-next": "14.0.4",
+    "tailwindcss": "^3.4.1",
     "typescript": "^5"
   }
 }
