@@ -1,3 +1,4 @@
+import { keepLoginAction } from '@/actions/keeplogin.action';
 import { loginUserAction } from '@/actions/login.actions';
 
 import { registerAction } from '@/actions/register.actions';
@@ -24,7 +25,6 @@ export class UserController {
     }
   }
 
-
   async loginUser(req: Request, res: Response, next: NextFunction) {
     try {
       const data = req.body;
@@ -36,4 +36,14 @@ export class UserController {
     }
   }
 
+  async keepLogin(req: Request, res: Response, next: NextFunction) {
+    try {
+      const email = req.user!.email;
+      const result = await keepLoginAction(email as string);
+
+      res.status(200).send(result);
+    } catch (error) {
+      next(error);
+    }
+  }
 }
