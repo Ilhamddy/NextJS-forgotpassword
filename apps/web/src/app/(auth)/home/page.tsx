@@ -1,3 +1,4 @@
+
 'use client';
 import { useAppSelector } from '@/lib/hooks';
 import React from 'react';
@@ -12,7 +13,9 @@ const HomePage = () => {
         <div className="text-8xl text-second  animate-pulse ease-out delay-700 ">
           HOMEPAGE
         </div>
+
         <div>{user.email}</div>
+
       </div>
     </section>
   );
