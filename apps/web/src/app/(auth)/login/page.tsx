@@ -2,6 +2,7 @@
 
 import CardLogin from './components/CardLogin';
 
+
 const LoginPage = () => {
   return (
     <section>
