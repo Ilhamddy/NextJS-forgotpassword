@@ -1,4 +1,5 @@
 import { loginUserAction } from '@/actions/login.actions';
+
 import { registerAction } from '@/actions/register.actions';
 import prisma from '@/prisma';
 import { NextFunction, Request, Response } from 'express';
@@ -23,6 +24,7 @@ export class UserController {
     }
   }
 
+
   async loginUser(req: Request, res: Response, next: NextFunction) {
     try {
       const data = req.body;
@@ -33,4 +35,5 @@ export class UserController {
       next(error);
     }
   }
+
 }
