@@ -1,3 +1,5 @@
+import { loginUserAction } from '@/actions/login.actions';
+
 import { registerAction } from '@/actions/register.actions';
 import prisma from '@/prisma';
 import { NextFunction, Request, Response } from 'express';
@@ -21,4 +23,17 @@ export class UserController {
       next(error);
     }
   }
+
+
+  async loginUser(req: Request, res: Response, next: NextFunction) {
+    try {
+      const data = req.body;
+
+      const result = await loginUserAction(data);
+      return res.status(200).send(result);
+    } catch (error) {
+      next(error);
+    }
+  }
+
 }

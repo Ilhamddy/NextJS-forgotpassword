@@ -1,6 +1,45 @@
-import React from 'react';
+
+'use client';
+import { loginAction } from '@/lib/features/userSlice';
+import { useAppDispatch } from '@/lib/hooks';
+import axios, { AxiosError } from 'axios';
+import { useRouter } from 'next/navigation';
+import React, { useState } from 'react';
 
 const LoginPage = () => {
+  const router = useRouter();
+  const dispatch = useAppDispatch();
+
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+
+  const baseUrl = 'http://localhost:8000/api';
+
+  const handleLogin = async () => {
+    try {
+      if (!email || !password) {
+        return alert('Input cannot be empty');
+      }
+      const { data } = await axios.post(`${baseUrl}/users/login`, {
+        email,
+        password,
+      });
+      console.log(data);
+
+      dispatch(loginAction(data.data));
+      localStorage.setItem('token', data.token);
+
+      alert('login succes');
+      router.push('/');
+    } catch (error) {
+      if (error instanceof AxiosError) {
+        const errorMsg = error.response?.data || error.message;
+        alert(errorMsg);
+      }
+    }
+  };
+
+
   return (
     <section>
       <div>
@@ -43,17 +82,20 @@ const LoginPage = () => {
                   stroke="currentColor"
                 >
                   <path
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    stroke-width="2"
+
+                    // stroke-linecap="round"
+                    // stroke-linejoin="round"
+                    // stroke-width="2"
+
                     d="M16 12a4 4 0 10-8 0 4 4 0 008 0zm0 0v1.5a2.5 2.5 0 005 0V12a9 9 0 10-9 9m4.5-1.206a8.959 8.959 0 01-4.5 1.207"
                   />
                 </svg>
                 <input
                   className="pl-2 outline-none border-none"
                   type="text"
-                  name=""
-                  id=""
+
+                  onChange={(e) => setEmail(e.target.value)}
+
                   placeholder="Email Address"
                 />
               </div>
@@ -65,20 +107,26 @@ const LoginPage = () => {
                   fill="currentColor"
                 >
                   <path
-                    fill-rule="evenodd"
+
+                    // fill-rule="evenodd"
                     d="M5 9V7a5 5 0 0110 0v2a2 2 0 012 2v5a2 2 0 01-2 2H5a2 2 0 01-2-2v-5a2 2 0 012-2zm8-2v2H7V7a3 3 0 016 0z"
-                    clip-rule="evenodd"
+                    // clip-rule="evenodd"
+
                   />
                 </svg>
                 <input
                   className="pl-2 outline-none border-none"
-                  type="text"
-                  name=""
-                  id=""
+
+                  type="password"
+                  onChange={(e) => setPassword(e.target.value)}
+
                   placeholder="Password"
                 />
               </div>
               <button
+
+                onClick={handleLogin}
+
                 type="submit"
                 className="block hover:transition-all  animate-bounce w-full bg-yellow-400 hover:bg-yellow-800 mt-4 py-2 rounded-2xl text-white font-semibold mb-2"
               >
